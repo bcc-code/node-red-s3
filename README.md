@@ -1,70 +1,42 @@
-node-red-web-nodes
-==================
+node-red-node-aws
+=================
 
-A collection of [node-red](http://nodered.org) nodes aimed at web services
+A <a href="http://nodered.org" target="_new">Node-RED</a> node to watch, send
+and receive files from an Amazon S3 bucket.
 
-### Installation
+Install
+-------
 
-This repository acts as an overall store for these nodes - and is not
-intended as a way to install them - unless you really do want some development.
+Run the following command in the root directory of your Node-RED install
 
-These nodes are separated into individual npms and available to
-install from [npm](https://www.npmjs.com/search?q=node-red-node-).
+        npm install node-red-node-aws
 
-To install - either use the manage palette option in the editor, or change to
-your Node-RED user directory - this is usually `~/.node-red`
+Usage
+-----
 
-        cd ~/.node-red
-        npm install node-red-node-{nodename}
+### Amazon S3 watch node
 
+Watches for file events on an Amazon S3 bucket. By default all
+file events are reported, but the filename pattern can be supplied
+to limit the events to files which have full filenames that match
+the glob pattern. The event messages consist of the full filename
+in `msg.payload` property, the filename in `msg.file`,
+the event type in `msg.event`.
 
-### Nodes
+### Amazon S3 input node
 
-The install name is node-red-node-*(the name in braces)*. For example
-
-        cd ~/.node-red
-        npm install node-red-node-weather-underground
-
- - Amazon S3 (aws)
- - Box (box)
- - Delicious (delicious)
- - Dropbox (dropbox)
- - FitBit (fitbit)
- - Flickr (flicker)
- - Forecast.io (forecastio)
- - FourSquare/Swarm (foursquare)
- - Google Calendar (google)
- - Google Directions (google)
- - Google Geocoding (google)
- - Google Places (google)
- - Google Plus (google)
- - Instagram (instagram)
- - Jawbone (jawboneup)
- - OpenWeatherMap (openweathermap)
- - Pinboard (pinboard)
- - Strava (strava)
- - Transport for London (tfl)
- - Weather Underground (weather-underground)
+Downloads content from an Amazon S3 bucket. The bucket name can be specified in
+the node **bucket** property or in the `msg.bucket` property.
+The name of the file to download is taken from the node <b>filename</b> property
+or the `msg.filename` property. The downloaded content is sent as `msg.payload`
+property. If the download fails `msg.error` will contain an error object.
 
 
-### Running Tests
-To run tests on all of the nodes you will need the node-red runtime:
+### Amazon S3 out node.
 
-     npm i node-red-web-nodes
-     npm test
-
-
-### Contributing / Fixes
-
-Now that we support npm installaton of nodes we recommend people create and post their own
-via [npm](https://www.npmjs.org/). Please read
-the [packaging guide notes](http://nodered.org/docs/creating-nodes/packaging.html).
-
-For simple typos and single line fixes please just raise an issue pointing out
-our mistakes. If you need to raise a pull request please read our
-[contribution guidelines](https://github.com/node-red/node-red/blob/master/CONTRIBUTING.md)
-before doing so.
-
-### Copyright and license
-
-Copyright JS Foundation and other contributors, http://js.foundation under [the Apache 2.0 license](LICENSE).
+Uploads content to an Amazon S3 bucket. The bucket name can be specified in the
+node <b>bucket</b> property or in the `msg.bucket` property. The filename on
+Amazon S3 is taken from the node <b>filename</b> property or the
+`msg.filename` property. The content is taken from either the node
+<b>localFilename</b> property, the `msg.localFilename` property or
+the `msg.payload` property.

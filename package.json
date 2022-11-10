@@ -1,62 +1,28 @@
 {
-    "name": "node-red-node-web-nodes",
-    "version": "0.4.3",
-    "description": "A collection of Node-RED nodes for popular web services.",
-    "homepage": "http://nodered.org",
-    "license": "Apache-2.0",
+    "name": "node-red-contrib-s3",
+    "version": "0.1.0",
+    "description": "A Node-RED node to upload files to an Amazon S3 bucket",
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.204.0"
+    },
     "repository": {
         "type": "git",
-        "url": "https://github.com/node-red/node-red-web-nodes.git"
+        "url": "https://github.com/bcc-code/node-red-s3"
     },
-    "scripts": {
-        "test": "grunt"
-    },
+    "license": "Apache-2.0",
     "keywords": [
-        "node-red-web",
-        "nodes",
-        "flow",
-        "flickr",
-        "pinboard",
-        "dropbox",
+        "node-red",
         "aws",
-        "s3",
-        "swarm",
-        "foursquare",
-        "instagram",
-        "google",
-        "tfl",
-        "strava",
-        "forecastio",
-        "jawbone"
+        "s3"
     ],
-    "devDependencies": {
-        "aws-sdk": "^2.709.0",
-        "backoff": "^2.5.0",
-        "clone": "^2.1.2",
-        "dropbox": "^10.20.0",
-        "fs-extra": "^9.0.1",
-        "grunt": "^1.2.0",
-        "grunt-cli": "^1.4.3",
-        "grunt-contrib-jshint": "^2.1.0",
-        "grunt-jscs": "^3.0.1",
-        "grunt-lint-inline": "^1.0.0",
-        "grunt-simple-mocha": "^0.4.1",
-        "instagram-node": "^0.5.8",
-        "is-utf8": "^0.2.1",
-        "minimatch": "^3.0.4",
-        "mocha": "^6.2.3",
-        "nock": "^11.9.1",
-        "node-red": "~1.1.0",
-        "node-red-node-test-helper": "~0.2.5",
-        "oauth": "~0.9.11",
-        "request": "^2.88.2",
-        "should": "^13.2.3",
-        "should-sinon": "^0.0.6",
-        "sinon": "~8.0.4",
-        "supertest": "^4.0.2",
-        "xml2js": "^0.4.0"
+    "node-red": {
+        "nodes": {
+            "Amazon s3": "s3.js"
+        }
     },
-    "engines": {
-        "node": ">=8.0.0"
+    "author": {
+        "name": "Matjaz Debelak",
+        "email": "matjaz.debelak@bcc.no",
+        "url": "http://bcc.media"
     }
 }
