@@ -1,4 +1,4 @@
-/**
+*
  * Copyright 2014 IBM Corp.
  * Copyright 2022 BCC Media Foundation
  *
@@ -34,7 +34,7 @@ module.exports = function(RED) {
 				secretAccessKey: this.credentials.secretaccesskey,
 			}
 			this.S3 = new s3SDK.S3({
-				"region": node.region,
+				region: n.region,
 				credentials,
 			});
 		}
@@ -212,40 +212,37 @@ module.exports = function(RED) {
 						var node = this;
 
 						if (!this.awsConfig.S3) {
-							node.warn(RED._("aws.warn.missing-credentials"));
+							node.warn("Missing credentials");
+							node.status({fill:"red",shape:"dot",text:"Missing credentials"});
 							return;
 						}
 
 						const s3 = this.awsConfig.S3;
-						if (!s3) {
-							return
-						}
 
 						node.status({fill:"blue",shape:"dot",text:"aws.status.checking-credentials"});
 						/// TODO: Promises man, promises
 						s3.headBucket({ Bucket: node.bucket }, function(err) {
 							if (err) {
-								node.warn(err);
-								node.error(RED._("aws.error.aws-s3-error",{err:err}));
-								node.status({fill:"red",shape:"ring",text:"aws.status.error"});
+								node.error(err);
+								node.status({fill:"red",shape:"ring",text:"Error. See Log"});
 								return;
 							}
-							node.status({fill:"green",shape:"square",text:"ready"});
+							node.status({fill:"green",shape:"square",text:"Ready"});
 							node.on("input", function(msg) {
 								var bucket = node.bucket || msg.bucket;
 								if (bucket === "") {
-									node.error(RED._("aws.error.no-bucket-specified"),msg);
+									node.error("Missing bucket")
 									return;
 								}
 								var filename = node.filename || msg.filename;
 								if (filename === "") {
-									node.error(RED._("aws.error.no-filename-specified"),msg);
+									node.error("Missing file name")
 									return;
 								}
 								var localFilename = node.localFilename || msg.localFilename;
 								if (localFilename) {
 									// TODO: use chunked upload for large files
-									node.status({fill:"blue",shape:"dot",text:"aws.status.uploading"});
+									node.status({fill:"blue",shape:"dot",text:"Uploading"});
 									var stream = fs.createReadStream(localFilename);
 									s3.putObject({
 										Bucket: bucket,
@@ -254,13 +251,13 @@ module.exports = function(RED) {
 									}, function(err) {
 										if (err) {
 											node.error(err.toString(),msg);
-											node.status({fill:"red",shape:"ring",text:"aws.status.failed"});
+											node.status({fill:"red",shape:"ring",text:"Failed"});
 											return;
 										}
-										node.status({});
+										node.status({fill:"green",shape:"ring",text:"Done"});
 									});
 								} else if (typeof msg.payload !== "undefined") {
-									node.status({fill:"blue",shape:"dot",text:"aws.status.uploading"});
+									node.status({fill:"blue",shape:"dot",text:"Uploading"});
 									s3.putObject({
 										Bucket: bucket,
 										Body: RED.util.ensureBuffer(msg.payload),
@@ -268,7 +265,7 @@ module.exports = function(RED) {
 									}, function(err) {
 										if (err) {
 											node.error(err.toString(),msg);
-											node.status({fill:"red",shape:"ring",text:"aws.status.failed"});
+											node.status({fill:"red",shape:"ring",text:"Failed"});
 											return;
 										}
 										node.status({fill:"green",shape:"ring",text:"Done"});

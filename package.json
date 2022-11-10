@@ -1,6 +1,6 @@
 {
     "name": "node-red-s3",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "description": "A Node-RED node to upload files to an Amazon S3 bucket",
     "dependencies": {
         "@aws-sdk/client-s3": "^3.204.0"
