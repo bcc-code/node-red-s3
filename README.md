@@ -9,10 +9,21 @@ Install
 
 Run the following command in the root directory of your Node-RED install
 
-        npm install node-red-node-aws
+        npm install node-red-contrib-s3
 
 Usage
 -----
+
+### Amazon S3 out node.
+
+Uploads content to an Amazon S3 bucket. The bucket name can be specified in the
+node <b>bucket</b> property or in the `msg.bucket` property. The filename on
+Amazon S3 is taken from the node <b>filename</b> property or the
+`msg.filename` property. The content is taken from either the node
+<b>localFilename</b> property, the `msg.localFilename` property or
+the `msg.payload` property.
+
+# Not impemented
 
 ### Amazon S3 watch node
 
@@ -30,13 +41,3 @@ the node **bucket** property or in the `msg.bucket` property.
 The name of the file to download is taken from the node <b>filename</b> property
 or the `msg.filename` property. The downloaded content is sent as `msg.payload`
 property. If the download fails `msg.error` will contain an error object.
-
-
-### Amazon S3 out node.
-
-Uploads content to an Amazon S3 bucket. The bucket name can be specified in the
-node <b>bucket</b> property or in the `msg.bucket` property. The filename on
-Amazon S3 is taken from the node <b>filename</b> property or the
-`msg.filename` property. The content is taken from either the node
-<b>localFilename</b> property, the `msg.localFilename` property or
-the `msg.payload` property.
