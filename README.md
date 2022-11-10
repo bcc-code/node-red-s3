@@ -1,4 +1,4 @@
-node-red-node-aws
+node-red-s3
 =================
 
 A <a href="http://nodered.org" target="_new">Node-RED</a> node to watch, send
@@ -9,7 +9,7 @@ Install
 
 Run the following command in the root directory of your Node-RED install
 
-        npm install node-red-contrib-s3
+        npm install node-red-s3
 
 Usage
 -----
