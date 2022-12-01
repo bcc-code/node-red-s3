@@ -37,7 +37,7 @@
         category: 'storage-input',
         color:"#C0DEED",
         defaults: {
-            aws: {type:"aws-config",required:true},
+            aws: {type:"s3-config",required:true},
             bucket: {required:true},
             filepattern: {value:""},
             name: {value:""},
@@ -99,7 +99,7 @@
         category: 'storage-output',
         color:"#C0DEED",
         defaults: {
-            aws: {type:"aws-config",required:true},
+            aws: {type:"s3-config",required:true},
             bucket: {required:true},
             filename: {value:""},
             region: {value:"", required:true},
@@ -117,7 +117,7 @@
 
 -->
 
-<script type="text/x-red" data-template-name="amazon s3 out">
+<script type="text/x-red" data-template-name="s3 out">
     <div class="form-row">
         <label for="node-input-aws"><i class="fa fa-user"></i> <span>AccessConfig</span></label>
         <input type="text" id="node-input-aws">
@@ -141,11 +141,11 @@
 </script>
 
 <script type="text/javascript">
-    RED.nodes.registerType('amazon s3 out',{
+    RED.nodes.registerType('s3 out',{
         category: 'storage-output',
         color:"#C0DEED",
         defaults: {
-            aws: {type:"aws-config",required:true},
+            aws: {type:"s3-config",required:true},
             bucket: {required:true},
             filename: {value:""},
             localFilename: {value:""},
@@ -161,7 +161,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="aws-config">
+<script type="text/x-red" data-template-name="s3-config">
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-bookmark"></i> <span>Name</span></label>
         <input class="input-append-left" type="text" id="node-config-input-name" style="width: 40%;" >
@@ -205,7 +205,7 @@
 
 <script type="text/javascript">
 (function() {
-    RED.nodes.registerType('aws-config',{
+    RED.nodes.registerType('s3-config',{
         category: 'config',
         defaults: {
 			name: {type:"text", required:true},

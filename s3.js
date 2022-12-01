@@ -1,4 +1,4 @@
-*
+/*
  * Copyright 2014 IBM Corp.
  * Copyright 2022 BCC Media Foundation
  *
@@ -22,7 +22,7 @@ module.exports = function(RED) {
 	var fs = require('fs');
 	//var minimatch = require("minimatch");
 
-	function AWSNode(n) {
+	function S3ConfigNode(n) {
 		RED.nodes.createNode(this,n);
 		if (
 			this.credentials &&
@@ -40,7 +40,7 @@ module.exports = function(RED) {
 		}
 	}
 
-	RED.nodes.registerType("aws-config",AWSNode,{
+	RED.nodes.registerType("s3-config",S3ConfigNode,{
 		credentials: {
 			accesskeyid: { type:"text" },
 			secretaccesskey: { type: "password" }
@@ -202,7 +202,7 @@ module.exports = function(RED) {
 	RED.nodes.registerType("amazon s3", AmazonS3QueryNode);
 	*/
 
-					function AmazonS3OutNode(n) {
+					function AWSS3OutNode(n) {
 						RED.nodes.createNode(this,n);
 						this.awsConfig = RED.nodes.getNode(n.aws);
 						this.region = n.region  || "eu-west-1";
@@ -229,7 +229,7 @@ module.exports = function(RED) {
 							}
 							node.status({fill:"green",shape:"square",text:"Ready"});
 							node.on("input", function(msg) {
-								var bucket = node.bucket || msg.bucket;
+								bucket = node.bucket || msg.bucket;
 								if (bucket === "") {
 									node.error("Missing bucket")
 									return;
@@ -239,6 +239,7 @@ module.exports = function(RED) {
 									node.error("Missing file name")
 									return;
 								}
+
 								var localFilename = node.localFilename || msg.localFilename;
 								if (localFilename) {
 									// TODO: use chunked upload for large files
@@ -274,6 +275,6 @@ module.exports = function(RED) {
 							});
 						});
 					}
-	RED.nodes.registerType("amazon s3 out",AmazonS3OutNode);
+	RED.nodes.registerType("s3 out", AWSS3OutNode);
 };
 
